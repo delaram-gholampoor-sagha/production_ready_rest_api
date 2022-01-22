@@ -29,7 +29,7 @@ func (app *App) Run() error{
 	commentService := comment.NewService(db)
 	handler := transportHTTP.NewHandler(commentService)
 	handler.SetupRoutes()
-	if err := http.ListenAndServe(":8080" , handler.Router) ; err != nil {
+	if err := http.ListenAndServe(":8081" , handler.Router) ; err != nil {
         fmt.Println("failed to setup server ")
 		return err
 	}
