@@ -8,6 +8,13 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
+
+// $ export DB_USERNAME=postgres
+// $ export DB_PASSWORD=postgres
+// $ export DB_TABLE=postgres
+// $ export DB_PORT=5432
+// $ export DB_HOST=localhost
+
 func NewDatabse() (*gorm.DB, error) {
 	fmt.Println("setting up new database connection")
 	dbUserName := os.Getenv("DB_USERNAME")

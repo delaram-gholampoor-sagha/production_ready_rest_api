@@ -21,6 +21,11 @@ func (app *App) Run() error{
 	if err != nil {
 		return err
 	}
+	err = database.MigrationDB(db)
+	if err != nil {
+		return  err
+	}
+
 	commentService := comment.NewService(db)
 	handler := transportHTTP.NewHandler(commentService)
 	handler.SetupRoutes()
