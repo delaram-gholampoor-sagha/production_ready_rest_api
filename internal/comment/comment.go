@@ -89,4 +89,12 @@ func (s *Service) DeleteComment(ID uint) error {
 	return nil
 }
 
+// GetAllComment - retrieve all comments from database 
+func (s *Service) GetAllComment() ([]Comment ,error) {
+	var comments []Comment
+	if result := s.DB.Find(&comments) ; result.Error != nil {
+		return comments , result.Error 
+	}
+	return comments , nil 
+}
 

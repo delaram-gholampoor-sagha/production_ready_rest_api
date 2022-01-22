@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Delaram-Gholampoor-Sagha/production_ready_rest_api/internal/comment"
 	"github.com/Delaram-Gholampoor-Sagha/production_ready_rest_api/internal/database"
 	transportHTTP "github.com/Delaram-Gholampoor-Sagha/production_ready_rest_api/internal/transport/http"
 )
@@ -16,11 +17,12 @@ type App struct {}
 func (app *App) Run() error{
     fmt.Println("Setting Up our app")
 	var err error
-	_ , err  = database.NewDatabse()
+	db , err  := database.NewDatabse()
 	if err != nil {
 		return err
 	}
-	handler := transportHTTP.NewHandler()
+	commentService := comment.NewService(db)
+	handler := transportHTTP.NewHandler(commentService)
 	handler.SetupRoutes()
 	if err := http.ListenAndServe(":8080" , handler.Router) ; err != nil {
         fmt.Println("failed to setup server ")
