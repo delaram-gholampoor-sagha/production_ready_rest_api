@@ -6,6 +6,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -17,7 +18,9 @@ import (
 
 func NewDatabase() (*gorm.DB, error) {
 	log.Info("Setting up new database connection")
-
+	if err := godotenv.Load(".env"); err != nil {
+		log.Error("error when trying to load env file")
+	}
 	dbUsername := os.Getenv("DB_USERNAME")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")
